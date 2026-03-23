@@ -81,13 +81,13 @@ export default function YieldDetailCard({
 
         {/* Action buttons */}
         <div className="flex items-center gap-3">
-          <Button variant="secondary" size="md" className="flex-1">
+          <Button variant="secondary" size="md" className="flex-1 whitespace-nowrap">
             Withdraw Collateral &gt;
           </Button>
           <Button
             variant="primary"
             size="md"
-            className="flex-1"
+            className="flex-1 whitespace-nowrap"
             disabled={!connected}
           >
             Claim Yield
