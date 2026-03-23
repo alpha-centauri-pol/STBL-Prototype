@@ -137,13 +137,14 @@ export default function ProfileDrawer({ open, onClose, walletAddress }: ProfileD
 
         {/* Panel content */}
         <div className="bg-white w-[535px] h-full overflow-y-auto relative">
-          {/* Decorative background */}
+          {/* Decorative background gradient */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-[0.03]"
+            className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage: "url(/assets/bg-gradient.png)",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundSize: "100% auto",
+              backgroundPosition: "center bottom",
+              backgroundRepeat: "no-repeat",
             }}
           />
 
