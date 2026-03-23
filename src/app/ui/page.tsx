@@ -374,23 +374,9 @@ function ComponentsTab() {
 
       {/* Slider */}
       <section className="mb-16">
-        <SectionHeading id="slider" title="Slider" description="Range slider with spring-animated fill and smooth mark snapping." />
+        <SectionHeading id="slider" title="Slider" description="Range slider with spring-animated fill for fluid tracking." />
         <div className="flex flex-col gap-6 max-w-sm">
           <Slider label="Lock Duration" min={0} max={100} value={sliderValue} onChange={setSliderValue} suffix="%" />
-          <Slider
-            label="With Marks"
-            min={1}
-            max={24}
-            value={6}
-            onChange={() => {}}
-            suffix="M"
-            marks={[
-              { value: 1, label: "1M" },
-              { value: 6, label: "6M" },
-              { value: 12, label: "12M" },
-              { value: 24, label: "24M" },
-            ]}
-          />
           <Slider label="Disabled" min={0} max={100} value={40} onChange={() => {}} suffix="%" disabled />
         </div>
       </section>
@@ -689,8 +675,8 @@ function InteractionsTab() {
         />
         <div className="grid grid-cols-2 gap-6">
           <SpecTable>
-            <SpecRow label="Content exit" value="y: 0 → -8, opacity: 0, blur(2px)" />
-            <SpecRow label="Spinner enter" value="y: 8 → 0, opacity: 0 → 1" />
+            <SpecRow label="Content exit" value="y: 0 → -10, opacity: 0, blur(3px)" />
+            <SpecRow label="Spinner enter" value="y: 10 → 0, opacity: 0 → 1, blur → clear" />
             <SpecRow label="Duration" value="0.15s (high frequency)" />
             <SpecRow label="Mode" value="AnimatePresence wait" />
             <SpecRow label="Hover (primary)" value="inset shadow 150ms" />
@@ -851,13 +837,12 @@ function InteractionsTab() {
         <SectionHeading
           id="i-slider-spring"
           title="Slider Spring Fill"
-          description="Fill bar uses a spring-connected motion value for fluid tracking. Mark clicks trigger a spring snap."
+          description="Fill bar uses a spring-connected motion value for fluid tracking."
         />
         <div className="grid grid-cols-2 gap-6">
           <SpecTable>
-            <SpecRow label="Fill spring" value="stiffness: 300, damping: 30" />
+            <SpecRow label="Fill spring" value="stiffness: 180, damping: 24" />
             <SpecRow label="Drag" value="Immediate value, spring follows" />
-            <SpecRow label="Mark snap" value="Spring animation to mark position" />
             <SpecRow label="Thumb hover" value="scale: 1.1, 150ms" />
             <SpecRow label="Keyboard" value="Arrows, PgUp/Dn, Home/End" />
             <SpecRow label="Token" value="spring.physical" />
@@ -867,17 +852,11 @@ function InteractionsTab() {
             <div className="max-w-[280px]">
               <Slider
                 label="Duration"
-                min={1}
-                max={24}
-                value={sliderVal > 24 ? 6 : sliderVal}
+                min={0}
+                max={100}
+                value={sliderVal}
                 onChange={(v) => setSliderVal(v)}
-                suffix="M"
-                marks={[
-                  { value: 1, label: "1M" },
-                  { value: 6, label: "6M" },
-                  { value: 12, label: "12M" },
-                  { value: 24, label: "24M" },
-                ]}
+                suffix="%"
               />
             </div>
           </InteractionDemo>
@@ -894,8 +873,8 @@ function InteractionsTab() {
         <div className="grid grid-cols-2 gap-6">
           <SpecTable>
             <SpecRow label="Enter" value="opacity: 0, y: 8, blur(4px) → clear" />
-            <SpecRow label="Exit" value="opacity: 0, y: -4, blur(4px)" />
-            <SpecRow label="Spring" value="0.45s, bounce: 0" />
+            <SpecRow label="Exit" value="opacity: 0, y: -8, blur(4px) + height collapse" />
+            <SpecRow label="Timing" value="height 0.35s ease-out, content 0.25s" />
             <SpecRow label="Token" value="spring.default + enter.default" />
             <SpecRow label="Dismiss icon" value="opacity 0.7 → 1 on hover" />
           </SpecTable>

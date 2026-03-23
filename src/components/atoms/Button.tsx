@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useRef, useEffect } from "react";
+import { type ReactNode, useRef, useLayoutEffect } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "pill";
@@ -71,17 +71,14 @@ export function Button({
 }: ButtonProps) {
   const prefersReducedMotion = useReducedMotion();
   const btnRef = useRef<HTMLButtonElement>(null);
-  const frozenWidth = useRef<number | undefined>(undefined);
+  const measuredWidth = useRef<number | undefined>(undefined);
 
-  // Freeze width before loading transition so button doesn't resize
-  useEffect(() => {
-    if (loading && btnRef.current && frozenWidth.current === undefined) {
-      frozenWidth.current = btnRef.current.offsetWidth;
+  // Measure width whenever NOT loading so we have it ready when loading starts
+  useLayoutEffect(() => {
+    if (!loading && btnRef.current) {
+      measuredWidth.current = btnRef.current.offsetWidth;
     }
-    if (!loading) {
-      frozenWidth.current = undefined;
-    }
-  }, [loading]);
+  });
 
   const motionProps = prefersReducedMotion
     ? {
@@ -98,7 +95,7 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      style={frozenWidth.current ? { minWidth: frozenWidth.current } : undefined}
+      style={loading && measuredWidth.current ? { minWidth: measuredWidth.current } : undefined}
       className={`
         inline-flex items-center justify-center gap-2 font-body font-medium
         overflow-hidden transition-[colors,box-shadow] duration-150

@@ -184,7 +184,12 @@ export function AlertBanner({
           initial={prefersReducedMotion ? false : { height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={prefersReducedMotion ? { opacity: 0 } : { height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
-          transition={{ type: "spring", duration: 0.45, bounce: 0 }}
+          transition={{
+            height: { duration: 0.35, ease: [0.25, 0, 0.2, 1] },
+            opacity: { duration: 0.2, ease: "easeOut" },
+            marginTop: { duration: 0.35, ease: [0.25, 0, 0.2, 1] },
+            marginBottom: { duration: 0.35, ease: [0.25, 0, 0.2, 1] },
+          }}
           style={{ overflow: "hidden" }}
         >
           <motion.div
@@ -196,8 +201,12 @@ export function AlertBanner({
             `}
             initial={prefersReducedMotion ? false : { y: 8, filter: "blur(4px)" }}
             animate={{ y: 0, filter: "blur(0px)" }}
-            exit={prefersReducedMotion ? {} : { y: -4, filter: "blur(4px)" }}
-            transition={{ type: "spring", duration: 0.45, bounce: 0 }}
+            exit={prefersReducedMotion ? {} : { y: -8, filter: "blur(4px)", opacity: 0 }}
+            transition={{
+              y: { duration: 0.25, ease: [0.25, 0, 0.2, 1] },
+              filter: { duration: 0.25, ease: "easeOut" },
+              opacity: { duration: 0.2, ease: "easeOut" },
+            }}
           >
             <span className={`shrink-0 ${styles.icon}`}>
               <Icon />

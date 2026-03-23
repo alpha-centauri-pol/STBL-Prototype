@@ -54,25 +54,6 @@ function valueToPct(value: number, min: number, max: number): number {
   return (value - min) / (max - min);
 }
 
-function snapToNearestMark(
-  pct: number,
-  marks: SliderMark[],
-  min: number,
-  max: number,
-): number {
-  let closest = pct;
-  let minDist = Infinity;
-  for (const mark of marks) {
-    const markPct = valueToPct(mark.value, min, max);
-    const dist = Math.abs(pct - markPct);
-    if (dist < minDist) {
-      minDist = dist;
-      closest = markPct;
-    }
-  }
-  return closest;
-}
-
 // ─── Component ──────────────────────────────────────────────────────
 
 export function Slider({
