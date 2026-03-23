@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { WalletIcon, ChevronDown, ChevronRight } from "../icons";
 import { Button } from "../atoms/Button";
+import ProfileDrawer from "./ProfileDrawer";
 
 interface TopNavProps {
   connected?: boolean;
@@ -31,7 +32,9 @@ export default function TopNav({ connected = false, walletAddress, isCollapsed =
   const sidebarWidth = isCollapsed ? 88 : 272;
   const [selectedChain, setSelectedChain] = useState("bnb");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const handleCloseProfile = useCallback(() => setProfileOpen(false), []);
 
   const activeChain = chains.find((c) => c.id === selectedChain) ?? chains[0];
 
@@ -128,7 +131,11 @@ export default function TopNav({ connected = false, walletAddress, isCollapsed =
           </div>
 
           {/* Wallet address */}
-          <div className="border border-[#4100a4] flex items-center gap-2 px-6 py-3 rounded-[41px] cursor-pointer hover:bg-gray-50 transition-colors">
+          <button
+            type="button"
+            onClick={() => setProfileOpen(true)}
+            className="border border-[#4100a4] flex items-center gap-2 px-6 py-3 rounded-[41px] cursor-pointer hover:bg-gray-50 transition-colors"
+          >
             <span
               className="text-base text-black font-medium"
               style={{ fontFeatureSettings: "'calt' 0, 'liga' 0" }}
@@ -136,7 +143,12 @@ export default function TopNav({ connected = false, walletAddress, isCollapsed =
               {formattedAddress}
             </span>
             <ChevronRight className="w-6 h-6 text-black" />
-          </div>
+          </button>
+          <ProfileDrawer
+            open={profileOpen}
+            onClose={handleCloseProfile}
+            walletAddress={walletAddress}
+          />
         </div>
       ) : (
         <Button
