@@ -73,43 +73,58 @@ export default function TopNav({ connected = false, walletAddress, isCollapsed =
                   <ChainFallbackIcon label={activeChain.label} />
                 )}
               </div>
-              <ChevronDown className={`w-6 h-6 text-black transition-transform duration-150 ${dropdownOpen ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-6 h-6 text-black transition-transform duration-100 ${dropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             {/* Dropdown */}
-            {dropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-[200px] bg-white border border-[#e8e0f4] rounded-xl shadow-lg py-1 z-50">
-                {chains.map((chain) => (
-                  <button
-                    key={chain.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedChain(chain.id);
-                      setDropdownOpen(false);
-                    }}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors cursor-pointer ${
-                      chain.id === selectedChain
-                        ? "bg-purple-50 text-purple-500 font-medium"
-                        : "text-black-500 hover:bg-black-15"
-                    }`}
-                  >
-                    <div className="relative w-6 h-6 shrink-0">
-                      {chain.icon ? (
-                        <Image src={chain.icon} alt={chain.label} fill className="rounded-full object-cover" />
-                      ) : (
-                        <ChainFallbackIcon label={chain.label} />
-                      )}
-                    </div>
-                    <span>{chain.label}</span>
-                    {chain.id === selectedChain && (
-                      <svg className="w-4 h-4 ml-auto text-purple-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 6 9 17l-5-5" />
-                      </svg>
+            <div
+              role="listbox"
+              style={{
+                transformOrigin: "top right",
+                transition: "transform 100ms ease-out, opacity 100ms ease-out",
+                transform: dropdownOpen ? "scale(1)" : "scale(0.95)",
+                opacity: dropdownOpen ? 1 : 0,
+                pointerEvents: dropdownOpen ? "auto" : "none",
+              }}
+              className="absolute top-full right-0 mt-2 w-[200px] bg-white border border-[#e8e0f4] rounded-xl shadow-lg overflow-hidden z-50"
+            >
+              {chains.map((chain, index) => (
+                <button
+                  key={chain.id}
+                  type="button"
+                  role="option"
+                  aria-selected={chain.id === selectedChain}
+                  onClick={() => {
+                    setSelectedChain(chain.id);
+                    setDropdownOpen(false);
+                  }}
+                  style={{
+                    opacity: dropdownOpen ? 1 : 0,
+                    transform: dropdownOpen ? "translateY(0)" : "translateY(-4px)",
+                    transition: `opacity 100ms ease-out ${index * 20}ms, transform 100ms ease-out ${index * 20}ms`,
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors ${
+                    chain.id === selectedChain
+                      ? "bg-purple-100 text-purple-500 font-medium"
+                      : "text-black-500 hover:bg-black-15"
+                  }`}
+                >
+                  <div className="relative w-6 h-6 shrink-0">
+                    {chain.icon ? (
+                      <Image src={chain.icon} alt={chain.label} fill className="rounded-full object-cover" />
+                    ) : (
+                      <ChainFallbackIcon label={chain.label} />
                     )}
-                  </button>
-                ))}
-              </div>
-            )}
+                  </div>
+                  <span>{chain.label}</span>
+                  {chain.id === selectedChain && (
+                    <svg className="w-4 h-4 ml-auto text-purple-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Wallet address */}
