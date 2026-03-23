@@ -1,26 +1,195 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Colors: Mode 1.tokens.json (Figma variables)
+  Typography: textStyles.json (STBL Product Showcase)
+*/
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Purple */
+  --color-purple-500: #4100a4;
+  --color-purple-400: #c6b2e3;
+  --color-purple-300: #d9cced;
+  --color-purple-200: #e8e0f4;
+  --color-purple-100: #f5f2fa;
+  --color-purple-50: #f8f5fc;
+  --color-purple-25: #fbfafd;
+
+  /* Black / neutrals (+ white) */
+  --color-white: #ffffff;
+  --color-black-500: #000000;
+  --color-black-400: #4d4d4d;
+  --color-black-300: #7f7f7f;
+  --color-black-200: #999999;
+  --color-black-100: #b2b2b2;
+  --color-black-50: #cccccc;
+  --color-black-25: #e5e5e5;
+  --color-black-15: #f7f7f7;
+
+  /* States */
+  --color-red-50: #ffebec;
+  --color-red-500: #fb3748;
+  --color-orange-50: #fff3eb;
+  --color-orange-500: #fa7319;
+  --color-green-50: #e0faec;
+  --color-green-500: #1fc16b;
+  --color-blue-50: #ebf1ff;
+  --color-blue-500: #335cff;
+
+  /* CTA / sidebar accent — not in Mode 1; aligned to purple scale */
+  --color-accent: #c6b2e3;
+
+  /* Font stacks (values set on <html> via next/font) */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* textStyles.json: PERCENT -1 letter spacing → -0.01em */
+:root {
+  --tracking-figma: -0.01em;
+}
+
+@layer components {
+  /* Headings — Stack Sans Headline, Medium (500), -1% tracking */
+  .typo-h1 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 2.25rem; /* 36px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-h2 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 2rem; /* 32px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-h3 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.75rem; /* 28px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-h4 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+  }
+
+  /* Subheadings — Aspekta 400 */
+  .typo-sub-xl {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-sub-lg {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem; /* 16px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-sub-sm {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-sub-xs {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+
+  /* Labels — Stack Sans Headline Light (300), uppercase */
+  .typo-label-xl {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+    text-transform: uppercase;
+  }
+  .typo-label-lg {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1rem; /* 16px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+    text-transform: uppercase;
+  }
+  .typo-label-sm {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+    text-transform: uppercase;
+  }
+  .typo-label-xs {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 0.625rem; /* 10px */
+    line-height: 1.2;
+    letter-spacing: var(--tracking-figma);
+    text-transform: uppercase;
+  }
+
+  /* Paragraphs — Aspekta */
+  .typo-p-xl {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-p-lg {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1rem; /* 16px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-p-md {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-p-sm {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
+  }
+  .typo-p-xs {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.625rem; /* 10px */
+    line-height: 1.4;
+    letter-spacing: var(--tracking-figma);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-white);
+  color: var(--color-black-500);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Only show focus rings on keyboard navigation, never on mouse/trackpad clicks */
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
 }
