@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface ProfileDrawerProps {
   open: boolean;
@@ -71,6 +72,9 @@ const transactions = [
 // ── Component ────────────────────────────────────────────────────────
 
 export default function ProfileDrawer({ open, onClose, walletAddress }: ProfileDrawerProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   const formatted = walletAddress
     ? `${walletAddress.slice(0, 6)}…${walletAddress.slice(-4)}`
     : "0xb976…4c3d";
@@ -95,7 +99,9 @@ export default function ProfileDrawer({ open, onClose, walletAddress }: ProfileD
     return () => document.removeEventListener("keydown", handleKey);
   }, [open, onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       {/* Overlay */}
       <div
@@ -236,6 +242,7 @@ export default function ProfileDrawer({ open, onClose, walletAddress }: ProfileD
           </div>
         </div>
       </aside>
-    </>
+    </>,
+    document.body,
   );
 }
