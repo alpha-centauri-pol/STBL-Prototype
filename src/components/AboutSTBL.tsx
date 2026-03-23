@@ -1,5 +1,3 @@
-import { StblArrow } from "./icons";
-
 const faqs = [
   {
     question: "What is USST and how does it work?",
@@ -24,12 +22,9 @@ export default function AboutSTBL() {
         {faqs.map((faq, i) => (
           <div key={i}>
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <StblArrow className="w-[15px] h-[17px] text-black shrink-0" />
-                <p className="font-[var(--font-body)] font-medium text-base leading-[1.2] tracking-tight" style={{ fontFeatureSettings: "'calt' 0, 'liga' 0" }}>
-                  {faq.question}
-                </p>
-              </div>
+              <p className="font-[var(--font-body)] font-medium text-base leading-[1.2] tracking-tight" style={{ fontFeatureSettings: "'calt' 0, 'liga' 0" }}>
+                {faq.question}
+              </p>
               <p className="text-sm leading-[1.4] tracking-tight text-black-400">
                 {faq.answer}
               </p>

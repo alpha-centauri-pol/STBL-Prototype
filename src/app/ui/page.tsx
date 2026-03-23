@@ -20,7 +20,9 @@ import TokenDisplay from "@/components/molecules/TokenDisplay";
 import MetricValue from "@/components/molecules/MetricValue";
 import TransactionStepper from "@/components/molecules/TransactionStepper";
 import DataTable from "@/components/organisms/DataTable";
-import { DashboardIcon, TokenIcon, ChartIcon } from "@/components/icons";
+import DropdownMenu from "@/components/atoms/DropdownMenu";
+import ProfileDrawer from "@/components/organisms/ProfileDrawer";
+import { DashboardIcon, TokenIcon, ChartIcon, EarningsIcon, DonationIcon, ChevronDoubleLeft, WalletIcon } from "@/components/icons";
 
 // ─── Section configs ─────────────────────────────────────────────
 
@@ -38,7 +40,9 @@ const componentSections = [
   { id: "stepper", label: "Stepper" },
   { id: "cards", label: "Cards" },
   { id: "tables", label: "Tables" },
+  { id: "dropdown", label: "Dropdown Menu" },
   { id: "navigation", label: "Navigation" },
+  { id: "sidebar", label: "Sidebar & Drawer" },
 ];
 
 const interactionSections = [
@@ -59,6 +63,8 @@ const interactionSections = [
   { id: "i-nav-indicator", label: "Nav Indicator" },
   { id: "i-sidebar-collapse", label: "Sidebar Collapse" },
   { id: "i-hover-states", label: "Hover & Focus" },
+  { id: "i-profile-drawer", label: "Profile Drawer" },
+  { id: "i-chain-switcher", label: "Chain Switcher" },
   { id: "i-accessibility", label: "Accessibility" },
 ];
 
@@ -517,6 +523,23 @@ function ComponentsTab() {
 
         <h3 className="text-sm font-medium text-black-400 uppercase tracking-wide mt-8 mb-3">Pagination (standalone)</h3>
         <Pagination currentPage={page} totalItems={940} pageSize={10} onPageChange={setPage} />
+      </section>
+
+      {/* Dropdown Menu */}
+      <section className="mb-16">
+        <SectionHeading id="dropdown" title="Dropdown Menu" description="Contextual menu for selecting from a list of options." />
+        <div className="max-w-[240px]">
+          <DropdownMenu
+            items={[
+              { value: "bnb", label: "BNB Chain" },
+              { value: "ethereum", label: "Ethereum" },
+              { value: "polygon", label: "Polygon" },
+              { value: "arbitrum", label: "Arbitrum", disabled: true },
+            ]}
+            selectedValue="bnb"
+            onSelect={() => {}}
+          />
+        </div>
       </section>
 
       {/* Navigation */}
